@@ -2,7 +2,7 @@ name: Weekly Coding Challenges Email
 
 on:
   schedule:
-    - cron: '42 15 * * 3'
+    - cron: '45 15 * * 3'
 
 jobs:
   send_email:
@@ -21,4 +21,4 @@ jobs:
         python -m pip install --upgrade pip
         pip install requests
     - name: Run the script
-      run: python $GITHUB_WORKSPACE/problem_sending/main.py
+      run: python main.py
