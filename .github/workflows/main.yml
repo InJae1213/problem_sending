@@ -2,7 +2,7 @@ name: Weekly Coding Challenges Email
 
 on:
   schedule:
-    - cron: '39 23 * * 3'
+    - cron: '40 23 * * 3'
 
 jobs:
   send_email:
