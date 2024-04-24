@@ -2,7 +2,7 @@ name: Weekly Python Script
 
 on:
   schedule:
-    - cron: '5 0 * * 1'  # 매주 월요일 0시 5분에 실행
+    - cron: '10 22 * * 3'  # 매주 월요일 0시 5분에 실행
 
 jobs:
   run_script:
