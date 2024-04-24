@@ -2,7 +2,7 @@ name: Weekly Coding Challenges Email
 
 on:
   schedule:
-    - cron: '14 15 * * 3'
+    - cron: '17 15 * * 3'
 
 jobs:
   send_email:
@@ -11,9 +11,9 @@ jobs:
       EMAIL_USER: ${{ secrets.EMAIL_USER }}  # GitHub Secrets에서 설정한 이메일 사용자명
       EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}  # GitHub Secrets에서 설정한 이메일 비밀번호
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v3
       with:
         python-version: '3.10.4'
     - name: Install dependencies
