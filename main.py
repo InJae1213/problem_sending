@@ -59,8 +59,10 @@ def get_problems_text():
 
 def main():
     # 환경 변수로부터 이메일 정보를 불러옴
-    from_addr = os.environ.get('EMAIL_USER')
-    password = os.environ.get('EMAIL_PASSWORD')
+    from_addr = "mcsniper1213@gmail.com"
+    #os.environ.get('EMAIL_USER')
+    password = "hpqymvtkqhbbtdyz"
+    #os.environ.get('EMAIL_PASSWORD')
     to_addr_list = [
         ("신인재", "shininjae1213@naver.com"),
         ("김성권", "skdkim26@gmail.com"),
