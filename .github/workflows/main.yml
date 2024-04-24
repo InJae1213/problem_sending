@@ -2,11 +2,13 @@ name: Weekly Python Script
 
 on:
   schedule:
-    - cron: '10 22 * * 3'  # 매주 월요일 0시 5분에 실행
+    - cron: '40 22 * * 3'  # 매주 월요일 0시 5분에 실행
 
 jobs:
   run_script:
     runs-on: ubuntu-latest
+    env:
+      KAKAO_TOKEN: ${{ secrets.KAKAO_TOKEN }}
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python
@@ -18,4 +20,4 @@ jobs:
         python -m pip install --upgrade pip
         # 필요한 패키지 설치
     - name: Run script
-      run: python your_script.py  # 실행할 스크립트 파일 이름
+      run: python main.py  # 실행할 스크립트 파일 이름
