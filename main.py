@@ -58,7 +58,7 @@ def main():
     from_addr = os.environ.get('EMAIL_USER')
     password = os.environ.get('EMAIL_PASSWORD')
     to_addr = "shininjae1213@naver.com"  # 수정할 필요가 있으면 여기를 변경하세요.
-    subject = "오늘의 코테 문제"
+    subject = "이번주 코테 문제"
     problems_text = get_problems_text()
     send_email(subject, problems_text, to_addr, from_addr, password)
 
