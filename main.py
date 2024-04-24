@@ -57,10 +57,21 @@ def main():
     # 환경 변수로부터 이메일 정보를 불러옴
     from_addr = os.environ.get('EMAIL_USER')
     password = os.environ.get('EMAIL_PASSWORD')
-    to_addr = "shininjae1213@naver.com"  # 수정할 필요가 있으면 여기를 변경하세요.
+    to_addr_list = [
+        ("신인재", "shininjae1213@naver.com"),
+        ("김성권", "skdkim26@gmail.com"),
+        ("김희숙", "email.com"),
+        ("류지선", "jsryu2043@naver.com"),
+        ("장유진", "email.com"),
+        ("이치형", "deeir@naver.com"),
+        ("장현욱", "gusdnr1110@naver.com"),
+        ("오진솔", "znsol118@gmail.com"),
+        ("최혜린", "hlin118@gmail.com")
+    ]
     subject = "이번주 코테 문제"
     problems_text = get_problems_text()
-    send_email(subject, problems_text, to_addr, from_addr, password)
+    for recipient_name, recipient_email in to_addr_list:
+        send_email(subject, problems_text, recipient_email, from_addr, password)
 
 if __name__ == "__main__":
     main()
