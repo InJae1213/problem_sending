@@ -2,7 +2,7 @@ name: Weekly Coding Challenges Email
 
 on:
   schedule:
-    - cron: '17 15 * * 3'
+    - cron: '23 15 * * 3'
 
 jobs:
   send_email:
@@ -21,4 +21,4 @@ jobs:
         python -m pip install --upgrade pip
         pip install requests
     - name: Run the script
-      run: python problem_sending/main.py
+      run: python ../../main.py
