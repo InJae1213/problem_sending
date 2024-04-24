@@ -8,7 +8,7 @@ jobs:
   run_script:
     runs-on: ubuntu-latest
     env:
-      KAKAO_TOKEN: ${{ secrets.KAKAO_TOKEN }}
+      KAKAO_TOKEN: ${{ secrets.KAKAO_REST_API_KEY }}
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python
