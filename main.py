@@ -18,7 +18,6 @@ def fetch_problems_by_level(level):
         return []
 
 def send_email(subject, body, to_addr, from_addr, password):
-    # 이메일 서버 설정 (Gmail 예시)
     smtp_server = "smtp.gmail.com"
     smtp_port = 587
 
@@ -30,15 +29,20 @@ def send_email(subject, body, to_addr, from_addr, password):
     message.attach(MIMEText(body, "plain"))
 
     # 이메일 서버에 연결
-    server = smtplib.SMTP(smtp_server, smtp_port)
-    server.starttls()  # TLS 보안 시작
-    server.login(from_addr, password)
-    
-    # 이메일 전송
-    server.sendmail(from_addr, to_addr, message.as_string())
-    
-    # 연결 종료
-    server.quit()
+    try:
+        server = smtplib.SMTP(smtp_server, smtp_port)
+        server.starttls()  # TLS 보안 시작
+        server.login(from_addr, password)
+        
+        # 이메일 전송
+        server.sendmail(from_addr, to_addr, message.as_string())
+        
+        print("이메일이 성공적으로 전송되었습니다.")
+    except Exception as e:
+        print("이메일 전송에 실패하였습니다:", e)
+    finally:
+        # 연결 종료
+        server.quit()
 
 def get_problems_text():
     problems_text = "<<<오늘의 코테 문제>>>\n"
@@ -60,7 +64,7 @@ def main():
     to_addr_list = [
         ("신인재", "shininjae1213@naver.com"),
         ("김성권", "skdkim26@gmail.com"),
-        ("김희숙", "email.com"),
+        ("김희숙", "rz3210@naver.com"),
         ("류지선", "jsryu2043@naver.com"),
         ("장유진", "email.com"),
         ("이치형", "deeir@naver.com"),
