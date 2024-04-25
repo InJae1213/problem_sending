@@ -11,11 +11,17 @@ def save_indices(indices):
         json.dump(indices, file)
 
 def load_indices():
+    default_indices = {0: 0, 1: 0, 2: 0}
     try:
         with open("indices.json", "r") as file:
-            return json.load(file)
+            data = json.load(file)
+            # 모든 필요한 키가 있는지 확인하고, 없으면 기본값을 추가
+            for key in default_indices:
+                if key not in data:
+                    data[key] = default_indices[key]
+            return data
     except FileNotFoundError:
-        return {0: 0, 1: 0, 2: 0}
+        return default_indices
 
 current_indices = load_indices()
 
