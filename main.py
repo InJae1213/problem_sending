@@ -3,10 +3,26 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import os
+import json
 
-# 현재 문제의 인덱스를 추적하기 위한 변수
-current_indices = {0: 0, 1: 0, 2: 0}
+# 현재 문제의 인덱스를 파일에서 로드하고 저장하는 함수들
+def save_indices(indices):
+    with open("indices.json", "w") as file:
+        json.dump(indices, file)
 
+def load_indices():
+    try:
+        with open("indices.json", "r") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return {0: 0, 1: 0, 2: 0}
+
+current_indices = load_indices()
+
+def update_and_save_indices():
+    save_indices(current_indices)
+
+# 문제 데이터를 가져오는 함수
 def fetch_problems_by_level(level):
     url = f"https://school.programmers.co.kr/api/v2/school/challenges/?perPage=20&levels[]={level}&order=recent&search=&page=1"
     response = requests.get(url)
@@ -17,33 +33,28 @@ def fetch_problems_by_level(level):
         print(f"Failed to fetch data: HTTP {response.status_code}")
         return []
 
+# 이메일 전송 함수
 def send_email(subject, body, to_addr, from_addr, password):
     smtp_server = "smtp.gmail.com"
     smtp_port = 587
-
-    # MIME 메시지 생성
     message = MIMEMultipart()
     message["From"] = from_addr
     message["To"] = to_addr
     message["Subject"] = subject
     message.attach(MIMEText(body, "plain"))
 
-    # 이메일 서버에 연결
     try:
         server = smtplib.SMTP(smtp_server, smtp_port)
-        server.starttls()  # TLS 보안 시작
+        server.starttls()
         server.login(from_addr, password)
-        
-        # 이메일 전송
         server.sendmail(from_addr, to_addr, message.as_string())
-        
         print("이메일이 성공적으로 전송되었습니다.")
     except Exception as e:
         print("이메일 전송에 실패하였습니다:", e)
     finally:
-        # 연결 종료
         server.quit()
 
+# 문제 리스트를 문자열로 반환하는 함수
 def get_problems_text():
     problems_text = "<<<오늘의 코테 문제>>>\n"
     levels_count = {0: 2, 1: 2, 2: 1}
@@ -52,25 +63,18 @@ def get_problems_text():
         start_index = current_indices[level]
         end_index = start_index + count
         selected_problems = problems[start_index:end_index]
-        current_indices[level] += count
+        current_indices[level] = end_index
         if selected_problems:
             problems_text += f"{level} - " + ", ".join(selected_problems) + "\n"
+    update_and_save_indices()
     return problems_text
 
+# 메인 함수
 def main():
-    # 환경 변수로부터 이메일 정보를 불러옴
     from_addr = os.environ.get('EMAIL_USER')
     password = os.environ.get('EMAIL_PASSWORD')
     to_addr_list = [
-        ("신인재", "shininjae1213@naver.com"),
-        ("김성권", "skdkim26@gmail.com"),
-        ("김희숙", "rz3210@naver.com"),
-        ("류지선", "jsryu2043@naver.com"),
-        ("장유진", "email.com"),
-        ("이치형", "deeir@naver.com"),
-        ("장현욱", "gusdnr1110@naver.com"),
-        ("오진솔", "znsol118@gmail.com"),
-        ("최혜린", "hlin118@gmail.com")
+        # Email 수신자 리스트
     ]
     subject = "이번주 코테 문제"
     problems_text = get_problems_text()
