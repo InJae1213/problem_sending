@@ -7,8 +7,8 @@ jobs:
   send_email:
     runs-on: ubuntu-latest
     env:
-      EMAIL_USER: ${{ secrets.EMAIL_USER }}  # GitHub Secrets에서 설정한 이메일 사용자명
-      EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}  # GitHub Secrets에서 설정한 이메일 비밀번호
+      EMAIL_USER: ${{ secrets.EMAIL_USER }}
+      EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
     steps:
     - name: Check out repository
       uses: actions/checkout@v2
@@ -22,3 +22,10 @@ jobs:
         pip install requests
     - name: Run Python script
       run: python main.py
+    - name: Commit indices file
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add indices.json
+        git commit -m "Update indices for coding challenges"
+        git push
