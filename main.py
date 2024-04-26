@@ -15,17 +15,11 @@ def save_indices(indices):
         json.dump(indices, file)
 
 def load_indices():
-    default_indices = {0: 0, 1: 0, 2: 0}
     try:
         with open(indices_path, "r") as file:
-            data = json.load(file)
-            # 모든 필요한 키가 있는지 확인하고, 없으면 기본값을 추가
-            for key in default_indices:
-                if key not in data:
-                    data[key] = default_indices[key]
-            return data
+            return json.load(file)
     except FileNotFoundError:
-        return default_indices
+        return {0: 0, 1: 0, 2: 0}  # 파일이 없을 경우 초기 인덱스 설정
 
 current_indices = load_indices()
 
@@ -70,12 +64,12 @@ def get_problems_text():
     levels_count = {0: 2, 1: 2, 2: 1}
     for level, count in levels_count.items():
         problems = fetch_problems_by_level(level)
-        start_index = current_indices[level]
+        start_index = current_indices.get(str(level), 0)
         end_index = start_index + count
         selected_problems = problems[start_index:end_index]
-        current_indices[level] = end_index
+        current_indices[str(level)] = end_index
         if selected_problems:
-            problems_text += f"{level} - " + ", ".join(selected_problems) + "\n"
+            problems_text += f"레벨 {level} 문제 - " + ", ".join(selected_problems) + "\n"
     update_and_save_indices()
     return problems_text
 
