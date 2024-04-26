@@ -29,5 +29,6 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add indices.json
+        git diff --staged --exit-code || exit 0  # 변경 사항이 없으면 종료
         git commit -m "Update indices for coding challenges"
         git push
