@@ -1,7 +1,8 @@
 name: Weekly Coding Challenges Email
 
 on:
-  workflow_dispatch
+  schedule:
+    - cron: '0 2 * * *'  
 
 jobs:
   send_email:
