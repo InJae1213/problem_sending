@@ -5,15 +5,19 @@ from email.mime.multipart import MIMEMultipart
 import os
 import json
 
+# 파일 경로를 현재 스크립트 파일의 위치 기준으로 설정
+base_path = os.path.dirname(os.path.abspath(__file__))
+indices_path = os.path.join(base_path, "indices.json")
+
 # 현재 문제의 인덱스를 파일에서 로드하고 저장하는 함수들
 def save_indices(indices):
-    with open("indices.json", "w") as file:
+    with open(indices_path, "w") as file:
         json.dump(indices, file)
 
 def load_indices():
     default_indices = {0: 0, 1: 0, 2: 0}
     try:
-        with open("indices.json", "r") as file:
+        with open(indices_path, "r") as file:
             data = json.load(file)
             # 모든 필요한 키가 있는지 확인하고, 없으면 기본값을 추가
             for key in default_indices:
@@ -81,14 +85,7 @@ def main():
     password = os.environ.get('EMAIL_PASSWORD')
     to_addr_list = [
         ("신인재", "shininjae1213@naver.com"),
-        # ("김성권", "skdkim26@gmail.com"),
-        # ("김희숙", "rz3210@naver.com"),
-        # ("류지선", "jsryu2043@naver.com"),
-        # ("장유진", "email.com"),
-        # ("이치형", "deeir@naver.com"),
-        # ("장현욱", "gusdnr1110@naver.com"),
-        # ("오진솔", "znsol118@gmail.com"),
-        # ("최혜린", "hlin118@gmail.com")
+        # 추가 수신자 리스트는 주석 처리
     ]
     subject = "이번주 코테 문제"
     problems_text = get_problems_text()
