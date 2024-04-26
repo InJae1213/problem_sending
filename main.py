@@ -28,7 +28,7 @@ def update_and_save_indices():
 
 # 문제 데이터를 가져오는 함수
 def fetch_problems_by_level(level):
-    url = f"https://school.programmers.co.kr/api/v2/school/challenges/?perPage=20&levels[]={level}&order=recent&search=&page=1"
+    url = f"https://school.programmers.co.kr/api/v2/school/challenges/?perPage=100&levels[]={level}&order=recent&search=&page=1"
     response = requests.get(url)
     if response.status_code == 200:
         data = response.json()
