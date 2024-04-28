@@ -79,14 +79,14 @@ def main():
     password = os.environ.get('EMAIL_PASSWORD')
     to_addr_list = [
         ("신인재", "shininjae1213@naver.com"),
-        # ("김성권", "skdkim26@gmail.com"),
-        # ("김희숙", "rz3210@naver.com"),
-        # ("류지선", "jsryu2043@naver.com"),
-        # ("장유진", "email.com"),
-        # ("이치형", "deeir@naver.com"),
-        # ("장현욱", "gusdnr1110@naver.com"),
-        # ("오진솔", "znsol118@gmail.com"),
-        # ("최혜린", "hlin118@gmail.com")
+        ("김성권", "skdkim26@gmail.com"),
+        ("김희숙", "rz3210@naver.com"),
+        ("류지선", "jsryu2043@naver.com"),
+        ("장유진", "socommonly@gmail.com"),
+        ("이치형", "deeir@naver.com"),
+        ("장현욱", "gusdnr1110@naver.com"),
+        ("오진솔", "znsol118@gmail.com"),
+        ("최혜린", "hlin118@gmail.com")
     ]
     subject = "이번주 코테 문제"
     problems_text = get_problems_text()
